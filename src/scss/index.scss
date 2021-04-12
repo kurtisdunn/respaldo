@@ -1,0 +1,59 @@
+@import "~bootstrap/scss/bootstrap";
+
+
+$backgroud: #191b1c;
+$paragraph:  #cac5bd;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: $backgroud;
+  color: $paragraph;
+}
+a{
+  color: $paragraph;
+  &:hover, &:active{
+    color: $paragraph;
+    text-decoration: underline!important;
+  }
+}
+h1{
+  font-size: 1.5rem
+}
+
+.main{
+  padding: 15px 15px;
+  min-height:100%;
+}
+
+.container{
+  // Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  max-width: 100%;
+  padding: 2px;
+  header{
+    margin-top:0;
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+  max-width: 100%;
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+  max-width: 100%;
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
+  max-width: 1199.98px;
+}
+
+// Extra large devices (large desktops)
+max-width: 1199.98px;
+// No media query since the extra-large breakpoint has no upper bound on its width
+}
