@@ -3,21 +3,24 @@ import cookie from 'js-cookie';
 import fetch from '../../utils/fetch';
 
 export default function (data) {
-  console.log(data);
-  const urlencoded = new URLSearchParams();
-  urlencoded.append("grant_type", "password");
-  urlencoded.append("username", "hostworks.local\\kurtisd");
-  urlencoded.append("password", "NWz#Lut9nc*7!");
-  
-  var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer");
-myHeaders.append("Accept", "application/json");
-myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
   return fetch('/token', {
-    method: 'POST',
-    headers: myHeaders,
-    body: urlencoded,
-    redirect: 'follow'
-  })
+    method: 'post',
+    headers: {
+      'Authorization': 'Bearer',
+      "cont": "application/json",
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    body: new URLSearchParams({
+      'grant_type':'password',
+      'username': data.username,
+      'password': data.password
+    })
+  }).then(function (r) {
+    cookie.set('token', {
+      access: r.access_token,
+      expiry: r.expires_in,
+      refresh: r.refresh_token,
+      type: r.token_type[0].toUpperCase() + r.token_type.substring(1)
+    });
+  });
 }

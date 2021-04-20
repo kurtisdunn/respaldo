@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import 'jquery';
 import 'bootstrap';
 
+import cookie from 'js-cookie';
+
 import { HashRouter as Router, Route, Switch, IndexRoute, hashHistory, Redirect, browserHistory } from 'react-router-dom';
 
 import Home from '../../views/home';
@@ -28,11 +30,21 @@ class App extends React.Component {
       authed: false
     };
     this.authenticationCallback = this.authenticationCallback.bind(this);
+    
   }
-
+  componentDidMount(){
+    const that = this;
+    const token = cookie.getJSON('token');
+    console.log(token);
+    if (token) {
+      that.setState({ authed: true })
+    } else{
+      that.setState({ authed: false })
+    }
+  }
   authenticationCallback(r){
-    if(r != null){
-      this.setState({authed: true});
+    if(r === true){
+      this.setState({ authed: true });
     }
   }
 
@@ -40,7 +52,7 @@ class App extends React.Component {
     return(
     <Router>
       <Switch>
-        <Route path="/login" render={(props) => <Login {...props} auth={this.authenticationCallback} /> } />
+        <Route path="/login" render={(props) => <Login {...props} auth={ this.authenticationCallback } /> } />
         <PrivateRoute authed={ this.state.authed } path='/'  component = { Home } />
       </Switch>
     </Router>

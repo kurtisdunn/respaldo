@@ -7,6 +7,13 @@ import validate from '../../utils/validator/form';
 
 import Alert from '../../components/alert';
 
+// 
+//
+//  Caveat. This component has been modified to fit the repsonses from https://veeamvac.5gn.com.au:1281. This will needd to be reverted to fit better response messages from API.
+//
+//
+
+
 function serialize(elem) {
   return $(elem).serializeArray().reduce(function(prev, curr) {
     var selects = [].slice.call(elem.querySelectorAll('select'));
@@ -64,7 +71,7 @@ export default class Form extends React.Component {
     if (handler) {
      event.preventDefault();
     }
-    validate(event.target, function (field, errors) {
+    validate(event.target, function (errors) {
      that.setState({
        errors: errors
      });
@@ -74,12 +81,14 @@ export default class Form extends React.Component {
         return;
       }
       handler(serialize(form))
+        .then(that.emitResponse(form))
         .then(that.emitSuccess(form))
         .catch(that.emitError(form));
     });
   }
   emitResponse (form) {
     return function (response) {
+      console.log('emitResponse', response);
       emit(form, 'response', {
         detail: response
       });
@@ -89,16 +98,16 @@ export default class Form extends React.Component {
   emitSuccess () {
     const that = this;
     return function (response) {
-        if(response.success === true){
-          console.log('asdf', response.success);
-          that.setState({ response: response.toString(), responseType: 'success' });
-          that.props.callback(JSON.stringify(response));
-        }
+      console.log(response);
+          that.setState({ response: 'Success', responseType: 'success' });
+          that.props.callback(JSON.stringify({response: { success:  true }}));
+
     };
   }
   emitError () {
     const that = this;
     return function (response) {
+      console.log(response);
       if(response.success === undefined){
           console.log('error', response);
           that.setState({ response: response.toString(), responseType: 'danger' });

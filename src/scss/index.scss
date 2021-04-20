@@ -1,8 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 
 
-$backgroud: #191b1c;
-$paragraph:  #cac5bd;
+$backgroud: #cac5bd;
+$paragraph:  #191b1c;
 
 html, body {
   height: 100%;
@@ -57,3 +57,9 @@ h1{
 max-width: 1199.98px;
 // No media query since the extra-large breakpoint has no upper bound on its width
 }
+
+$form-text-margin-top:                  .25rem;
+$form-text-font-size:                   $small-font-size;
+$form-text-font-style:                  null;
+$form-text-font-weight:                 null;
+$form-text-color:                       $text-muted;

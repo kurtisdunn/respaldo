@@ -1,29 +1,35 @@
 import 'whatwg-fetch';
+import cookie from 'js-cookie';
 
-function checkStatus (res) {
-    // console.log(res);
-    // console.log(res.status);
-    // if (res.status == 200 ) {
-    //   console.log(res);
-    //   return res.json();
-    // }
 
-  if (res.status >= 200 && res.status < 300) {
-    return res;
- }else if(res.status === 500) {
-   return res;
+function checkStatus (response) {
+  // console.log('checkStatus', response);
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+ }else if(response.status === 500) {
+   return response;
   } else {
-    var error = new Error(res.statusText);
-    error.res = res.json();
+    var error = new Error(response.statusText);
+    error.response = response.json();
     throw error;
   }
 }
 
-function parseJson (res) {
-  if(res){ return res.json(); }
+function parseJson (response) {
+  if(response){ return response.json(); }
 }
 
 export default function (path, opts = {}) {
+  const token = cookie.getJSON('token');
+
+  if (!opts.headers) {
+    opts.headers = {};
+  }
+
+  if (token) {
+    opts.headers['Authorization'] = `Bearer ${token.access}`;
+  }
+
   return fetch(`api/${path}`, opts)
     .then(checkStatus)
     .then(parseJson);

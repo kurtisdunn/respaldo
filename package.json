@@ -29,17 +29,17 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.0-beta3",
+    "formik": "^2.2.6",
     "jquery": "^3.4.0",
     "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
     "object-assign": "^4.1.1",
-    "popper.js": "^1.15.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "salvattore": "^1.0.9",
     "whatwg-fetch": "^3.0.0"
   }
 }

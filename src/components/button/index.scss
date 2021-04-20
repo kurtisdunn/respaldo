@@ -1,1 +1,10 @@
+$btnPrimary: #01427c;
 
+.btn-primary{
+    color: #fff;
+    background-color: $btnPrimary;
+    border-color: $btnPrimary;
+    &:hover{
+        background-color: lighten($color: $btnPrimary, $amount: 10);
+    }
+}
