@@ -3,6 +3,7 @@
 
 $backgroud: #cac5bd;
 $paragraph:  #191b1c;
+$txtPrimary: #01427c;
 
 html, body {
   height: 100%;
@@ -11,6 +12,7 @@ html, body {
 body {
   background-color: $backgroud;
   color: $paragraph;
+  font-size: 0.8rem
 }
 a{
   color: $paragraph;
@@ -22,7 +24,9 @@ a{
 h1{
   font-size: 1.5rem
 }
-
+.text-primary{
+  color: $txtPrimary
+}
 .main{
   padding: 15px 15px;
   min-height:100%;

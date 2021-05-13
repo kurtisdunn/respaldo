@@ -88,7 +88,7 @@ export default class Form extends React.Component {
   }
   emitResponse (form) {
     return function (response) {
-      console.log('emitResponse', response);
+
       emit(form, 'response', {
         detail: response
       });
@@ -98,7 +98,7 @@ export default class Form extends React.Component {
   emitSuccess () {
     const that = this;
     return function (response) {
-      console.log(response);
+
           that.setState({ response: 'Success', responseType: 'success' });
           that.props.callback(JSON.stringify({response: { success:  true }}));
 
@@ -107,7 +107,7 @@ export default class Form extends React.Component {
   emitError () {
     const that = this;
     return function (response) {
-      console.log(response);
+
       if(response.success === undefined){
           console.log('error', response);
           that.setState({ response: response.toString(), responseType: 'danger' });

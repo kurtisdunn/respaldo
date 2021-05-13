@@ -7,7 +7,7 @@ import Logout from '../../api/user/logout';
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Home extends React.Component: ', props);
+    console.log('Header extends React.Component: ', props);
   }
   render(){
     return (
@@ -34,7 +34,7 @@ export default class Header extends React.Component {
             <span className="navbar-text">
                 v0.0.1&nbsp;&nbsp;&nbsp;
             </span>
-            <Button class={'btn-primary float-right'} value={'Logout'} type={'submit'} onClick={ Logout } />
+            <Button class={'btn-primary btn-sm float-right'} value={'Logout'} type={'submit'} onClick={ Logout } />
             </div>
         </div>
         </nav>
