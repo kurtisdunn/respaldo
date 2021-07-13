@@ -6,7 +6,7 @@ import Header from '../components/header';
 import Input from '../components/input';
 import Modal from '../components/modal';
 
-import GetResellers from '../api/resellers/get';
+import GetRepositories from '../api/backupRepositories/get';
 import GetTenants from '../api/tenants/get';
 import PostTenants from '../api/tenants/post';
 import GetCloudGatewayPool from '../api/cloudGatewayPools/get'
@@ -22,7 +22,7 @@ const newTenant = {
   "cloudGatewayPoolsUids": [
     "09f18663-3d4c-4db7-81b1-270c08f8d8a0" // Required, Cannot set automatically until using v3
   ],
-  CloudConnectAgentUid: '40bd0dcd-85c5-456c-807d-f48ee958ea54' //SDCGQPOOL01
+  CloudConnectAgentUid: '40bd0dcd-85c5-456c-807d-f48ee958ea54' //KP backup Pool
 };
 
 export default class Home extends React.Component {
@@ -40,12 +40,12 @@ export default class Home extends React.Component {
     const that = this;
     GetTenants().then(r => that.setState({ tenants: r }))
     GetCloudGatewayPool().then(r => that.setState({ cloudGatewayPools: r }))
-    GetResellers().then(r => console.log(r))
+    GetRepositories(2541353).then(r => that.setState({ backupRepositories: r })) //ID 2541353 - hwkpbakdd02
   }
   render(){
     const tenants = this.state.tenants.length > 0 ? this.state.tenants : null;
     const cloudGatewayPools = this.state.cloudGatewayPools ? this.state.cloudGatewayPools : null;
-
+    const backupRepositories = this.state.backupRepositories != null ? this.state.backupRepositories : null;
     return (
       <div>
         <Header />
@@ -55,6 +55,7 @@ export default class Home extends React.Component {
         <div className="card">
           <div className="card-body">
           <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newTenantModal">New Tenant</button>
+          
         <hr />
           {
             cloudGatewayPools ? 
@@ -69,20 +70,46 @@ export default class Home extends React.Component {
           </thead>
           <tbody>
          {cloudGatewayPools.map(r => 
-          <>
-            <tr data-bs-toggle="collapse" data-bs-target={`#${r.name.replace(/\s/g, "")}`} className="clickable" key={r.instanceUid} >
+          <React.Fragment key={r.instanceUid}>
+            <tr data-bs-toggle="collapse" data-bs-target={`#${r.name.replace(/\s/g, "")}`} className="clickable" style={{cursor: 'pointer'}}>
               <td>{r.name}</td>
               <td>{r.cloudAgentUid}</td>
               <td>{r.instanceUid}</td>
             </tr>
-            <tr>
-                <td colspan="3">
-                    <div id={r.name.replace(/\s/g, "")} className="collapse">Hidden by default</div>
+            <tr id={r.name.replace(/\s/g, "")} className="collapse">
+                <td colSpan="3">
+                    <div >Hidden by default</div>
                 </td>
             </tr>
-            </>
-     )
+            </React.Fragment>
+          )
          }
+          </tbody>
+        </table>
+       : null
+          }
+      
+          {
+            backupRepositories ? 
+          <table className="table  table-hover table-sm caption-top">
+          <caption>BackupRepositories</caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">serverName</th>
+              <th scope="col">capacity</th>
+              <th scope="col">freeSpace</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{backupRepositories.id}</td>
+              <td>{backupRepositories.name}</td>
+              <td>{backupRepositories.serverName}</td>
+              <td>{backupRepositories.capacity}TB</td>
+              <td>{backupRepositories.freeSpace}TB</td>
+            </tr>
           </tbody>
         </table>
        : null

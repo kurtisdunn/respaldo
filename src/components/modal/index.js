@@ -23,12 +23,7 @@ export default class Modal extends React.Component {
     // Return null to indicate no change to state.
     return null;
   }
-  componentDidMount(){
-    const that = this;
-    console.log('test: ', document.getElementById(this.props.id).querySelectorAll('button[type=submit]'));
-  }
   render() {
-    console.log(this.props.show);
     return (
         <div className="modal" tabIndex="-1" show={ this.props.show } id={this.props.id}>
             <div className="modal-dialog  modal-dialog-centered">
