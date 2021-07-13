@@ -35,7 +35,6 @@ class App extends React.Component {
   componentDidMount(){
     const that = this;
     const token = cookie.getJSON('token');
-    console.log(token);
     if (token) {
       that.setState({ authed: true })
     } else{

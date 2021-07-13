@@ -46,10 +46,15 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+    }),
     new HtmlWebpackPlugin({
       title: 'Respaldo',
       template: 'src/index.html'
     }),
+    
     new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
   ],
   devServer: {

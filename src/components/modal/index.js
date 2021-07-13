@@ -3,7 +3,6 @@ import React from 'react';
 
 const $ = window.$;
 
-
 export default class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +12,7 @@ export default class Modal extends React.Component {
     this.modalToggle = document.getElementById(this.props.id);
   }
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('getDerivedStateFromProps', this, nextProps, prevState);
+ 
     if (prevState.show !== nextProps.show) {
       return {
         show: nextProps.show
